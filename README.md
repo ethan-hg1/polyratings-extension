@@ -8,8 +8,7 @@ so you don't have to look them up separately while building your schedule.
 **Status:** matcher, caching, and badge injection are built and tested,
 including against a real captured Class Search DOM snapshot (see
 `test/content.test.js`). What's left is a live, logged-in verification pass
-(`## Testing against the live portal` below) — the one step that needs an
-actual portal session.
+against the real portal.
 
 ## How it works
 
@@ -50,6 +49,7 @@ scripts/
 test/
 ├── match.test.js
 ├── cache.test.js
+├── content.test.js    # scan() exercised against a real captured portal DOM
 └── fixtures/          # scrubbed portal DOM snapshots
 ```
 
@@ -65,45 +65,13 @@ npm run lint             # web-ext lint against dist/firefox
 npm run icons             # regenerate icons/*.png from icons/icon.svg (only when the icon changes)
 ```
 
-## Loading the extension locally
+`npm run build` produces `dist/chrome/` and `dist/firefox/` (unpacked) plus
+zipped versions of each, loadable via each browser's standard
+developer/unpacked-extension flow.
 
-Run `npm run build` first, then:
-
-**Firefox:**
-
-```sh
-npx web-ext run --source-dir dist/firefox
-```
-
-Opens a fresh Firefox profile with the extension loaded, auto-reloading on
-changes. Alternatively: `about:debugging` → "This Firefox" → "Load Temporary
-Add-on" → select `dist/firefox/manifest.json`. Temporary add-ons disappear on
-restart — that's expected during development.
-
-**Chrome:**
-
-`chrome://extensions` → toggle **Developer mode** (top right) → **Load
-unpacked** → select `dist/chrome/`. Click the refresh icon on the extension's
-card after each rebuild.
-
-## Testing against the live portal
-
-Badge placement and instructor-name matching still need verification against
-a real, logged-in Class Search session — that's a manual step:
-
-1. Log into the portal, open Class Search, run a search with many results.
-2. Confirm badges appear next to instructor names, survive
-   pagination/filter changes, and link to the right Polyratings professor
-   pages.
-3. Note any instructor names that fail to match or match incorrectly — feed
-   them back into `test/match.test.js` as regression fixtures.
-4. Spot-check a few departments (engineering, liberal arts, sciences) — name
-   formats and adjunct coverage differ.
-
-### Test fixtures
-
-Never commit a raw portal capture — the HighPoint shell embeds the logged-in
-student's name and ID. Scrub any saved HTML first:
+Never commit a raw portal capture used as a test fixture — the HighPoint
+shell embeds the logged-in student's name and ID. Scrub any saved HTML
+first:
 
 ```sh
 node scripts/scrub-fixture.mjs <input.html> <output.html>
