@@ -5,6 +5,11 @@ Cal Poly student portal's Class Search with [Polyratings](https://polyratings.de
 ratings — a star rating, evaluation count, and a link to the professor's page —
 so you don't have to look them up separately while building your schedule.
 
+**Status:** matcher, caching, and badge injection are built and tested,
+including against a real captured Class Search DOM snapshot (see
+`test/content.test.js`). What's left is a live, logged-in verification pass
+(`## Testing against the live portal` below) — the one step that needs an
+actual portal session.
 
 ## How it works
 
