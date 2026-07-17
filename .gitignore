@@ -1,0 +1,7 @@
+node_modules/
+dist/
+
+# Raw portal captures contain the logged-in student's name and ID — never
+# commit one. Scrub with scripts/scrub-fixture.mjs into test/fixtures/ first.
+/*.htm
+/*.html

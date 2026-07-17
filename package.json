@@ -1,0 +1,21 @@
+{
+  "name": "polyratings-extension",
+  "version": "0.1.0",
+  "description": "Shows Polyratings professor ratings on the Cal Poly student portal.",
+  "private": true,
+  "type": "module",
+  "license": "MPL-2.0",
+  "repository": "github:ethan-hg1/polyratings-extension",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build": "node scripts/build.mjs",
+    "lint": "web-ext lint --source-dir dist/firefox",
+    "icons": "node scripts/generate-icons.mjs"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "jsdom": "^25.0.1",
+    "sharp": "^0.33.5",
+    "web-ext": "^8.3.0"
+  }
+}
